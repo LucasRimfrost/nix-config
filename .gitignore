@@ -1,0 +1,9 @@
+# Nix build symlinks
+result
+result-*
+
+# home-manager backups
+*.hm-bak
+
+# nvim plugin manager state (don't commit downloaded plugins/state)
+dotfiles/nvim/lazy-lock.json.bak
