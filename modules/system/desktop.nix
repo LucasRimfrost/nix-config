@@ -7,7 +7,7 @@
 
   # Graphical-session keyboard layout (Plasma reads this default).
   # Change "us" -> "se" for a Swedish keyboard.
-  services.xserver.xkb.layout = "us";
+  services.xserver.xkb.layout = "se";
 
   # ---- Audio: PipeWire ----
   services.pulseaudio.enable = false;

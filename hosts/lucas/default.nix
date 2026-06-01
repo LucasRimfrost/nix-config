@@ -39,7 +39,7 @@
     LC_PAPER = "sv_SE.UTF-8";
   };
   # TTY keymap. Change to "sv-latin1" if your ThinkPad has a Swedish keyboard.
-  console.keyMap = "us";
+  console.keyMap = "sv-latin1";
 
   # ---- Intel UHD 620 (Kaby Lake-R, Gen9.5) ----
   hardware.graphics = {
