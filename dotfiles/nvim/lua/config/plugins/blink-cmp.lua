@@ -6,7 +6,9 @@ return {
 		"rafamadriz/friendly-snippets",
 		"saghen/blink.lib",
 	},
-	build = "cargo build --release",
+	build = function()
+		require("blink.cmp").build():pwait()
+	end,
 
 	opts = {
 		keymap = {

@@ -1,5 +1,6 @@
 {
   "blink.cmp": { "branch": "main", "commit": "43cb60895ee109161ae5cffa26444018cc07e570" },
+  "blink.lib": { "branch": "main", "commit": "c09dd66e9ad97e1a7777f3fa5f0504ca2e877231" },
   "conform.nvim": { "branch": "master", "commit": "619363c30309d29ffa631e67c8183f2a72caa373" },
   "friendly-snippets": { "branch": "main", "commit": "6cd7280adead7f586db6fccbd15d2cac7e2188b9" },
   "fzf-lua": { "branch": "main", "commit": "988416cc782dfe28bff3f0da9b8c943b236cd86a" },
