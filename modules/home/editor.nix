@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 {
   # Tools your config/LSPs commonly call on PATH.
   home.packages = with pkgs; [
@@ -16,9 +16,7 @@
 
   home.sessionVariables.EDITOR = "nvim";
 
-  home.activation.linkNvimConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    run rm -rf $VERBOSE_ARG "${config.xdg.configHome}/nvim" \
-      "${config.home.homeDirectory}/nix-config/dotfiles/nvim" \
-      "${config.xdg.configHome}/nvim" \
-  '';
+  xdg.configFile."nvim".source =
+    config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/nix-config/dotfiles/nvim";
 }

@@ -22,16 +22,17 @@
     enable = true;
     # "allow-downgrade" avoids breakage on misconfigured/captive networks while
     # still validating where possible. Use "true" for strict DNSSEC.
-    dnssec = "allow-downgrade";
-    dnsovertls = "true";
-    domains = [ "~." ]; # route ALL lookups through our servers (ignore DHCP-pushed DNS)
-    fallbackDns = [
-      "9.9.9.9#dns.quad9.net"
-      "2620:fe::fe#dns.quad9.net"
-    ];
-    settings.Resolve.DNS = "9.9.9.9#dns.quad9.net 149.112.112.112#dns.quad9.net 2620:fe::fe#dns.quad9.net 2620:fe::9#dns.quad9.net";
+    settings.Resolve = {
+      DNSSEC = "allow-downgrade";
+      DNSOverTLS = "opportunistic";
+      Domains = [ "~." ]; # route ALL lookups through our servers (ignore DHCP-pushed DNS) 
+      FallbackDNS = [
+        "9.9.9.9#dns.quad9.net"
+	"2620:fe::fe#dns.quad9.net"
+      ];
+      DNS = "9.9.9.9#dns.quad9.net 149.112.112.112#dns.quad9.net 2620:fe::fe#dns.quad9.net 2620:fe::9#dns.quad9.net";
+    };
   };
-
   # NOTE: strict DNS-over-TLS can block captive-portal login pages (hotels,
   # airports). If you get stuck on one, temporarily set dnsovertls = "false",
   # rebuild, log in, then revert.
