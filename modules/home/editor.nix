@@ -1,25 +1,8 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    withNodeJs = true;  # most LSPs / plugins expect node
-    withPython3 = true;
-  };
-
-  # Your existing ~/.config/nvim is symlinked to the live copy inside this repo
-  # (NOT the read-only Nix store). This is deliberate: plugin managers like
-  # lazy.nvim need to write lazy-lock.json into the config dir, and you can edit
-  # your Lua without a rebuild. Drop your whole nvim/ folder into:
-  #     ~/nix-config/dotfiles/nvim/
-  xdg.configFile."nvim".source =
-    config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/nix-config/dotfiles/nvim";
-
   # Tools your config/LSPs commonly call on PATH.
   home.packages = with pkgs; [
+    neovim
     ripgrep      # fzf-lua grep, your `grep` alias
     fd           # fzf-lua files, your `find` alias
     fzf          # fzf-lua needs the fzf binary
@@ -30,4 +13,12 @@
     wget
     curl
   ];
+
+  home.sessionVariables.EDITOR = "nvim";
+
+  home.activation.linkNvimConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run rm -rf $VERBOSE_ARG "${config.xdg.configHome}/nvim" \
+      "${config.home.homeDirectory}/nix-config/dotfiles/nvim" \
+      "${config.xdg.configHome}/nvim" \
+  '';
 }

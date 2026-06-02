@@ -31,7 +31,7 @@
     jdt-language-server # provides the `jdtls` wrapper used by nvim-jdtls
 
     # --- LaTeX ---
-    texliveFull   # full TeX distribution: latex, latexmk, latexindent, biber, all packages
+    # texliveFull   # full TeX distribution: latex, latexmk, latexindent, biber, all packages
     texlab        # LaTeX LSP
 
     # --- General ---

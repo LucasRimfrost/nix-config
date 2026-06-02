@@ -140,7 +140,7 @@
   home.packages = with pkgs; [
     bat     # cat
     bottom  # btm
-    du-dust # dust
+    dust # dust
     duf     # df
   ];
 

@@ -17,7 +17,7 @@
   # Fill in the UUID of your *encrypted partition* (the LUKS container itself,
   # e.g. /dev/nvme0n1p2), found with: blkid /dev/nvme0n1p2
   boot.initrd.luks.devices."cryptroot" = {
-    device = "/dev/disk/by-uuid/REPLACE_WITH_LUKS_PARTITION_UUID";
+    device = "/dev/disk/by-uuid/e71c01c2-0f95-4f3d-af99-eefa59089587";
     allowDiscards = true;    # SSD TRIM passthrough (tiny info-leak tradeoff, fine on a laptop)
     bypassWorkqueues = true; # better SSD throughput
   };
