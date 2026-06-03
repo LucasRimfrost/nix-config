@@ -18,4 +18,6 @@
 
   # Brave (and a couple of firmware blobs) are unfree.
   nixpkgs.config.allowUnfree = true;
+
+  documentation.dev.enable = true;
 }
