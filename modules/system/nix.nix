@@ -28,5 +28,5 @@
   ];
 
   # Build the apropos/whatis index so `man -k` and `apropos getaddrinfo` work too.
-  documentation.man.generateCaches = true;
+  documentation.man.cache.enable = true;
 }
