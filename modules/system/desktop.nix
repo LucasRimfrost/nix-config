@@ -5,6 +5,10 @@
   services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
 
+  environment.systemPackages = [
+    pkgs.kdePackages.sierra-breeze-enhanced
+  ];
+
   # Graphical-session keyboard layout (Plasma reads this default).
   # Change "us" -> "se" for a Swedish keyboard.
   services.xserver.xkb.layout = "se";

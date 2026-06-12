@@ -16,6 +16,12 @@
       };
       iconTheme = "Tela"; # variants: "Tela-dark", "Tela-light", "Tela-blue-dark", ...
     };
+
+    # macOS-style window decoration (Sierra Breeze Enhanced)
+    configFile."kwinrc"."org.kde.kdecoration2" = {
+      library = "org.kde.sierrabreezeenhanced";
+      theme = "Sierra Breeze Enhanced";
+    };
   };
 
   # ---- Cursor for non-KDE apps (GTK, Electron, etc.) ----
