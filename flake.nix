@@ -11,6 +11,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Declarative KDE Plasma settings (cursor, icons, shortcuts, ...)
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     # Sensible hardware defaults (Intel CPU, laptop, SSD).
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
@@ -31,6 +38,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.sharedModules = [ inputs.plasma-manager.homeModules.plasma-manager ];
             home-manager.users.lucas = import ./home/lucas.nix;
             # Keep a timestamped backup if a file would be overwritten.
             home-manager.backupFileExtension = "hm-bak";

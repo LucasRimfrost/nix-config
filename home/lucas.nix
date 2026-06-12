@@ -6,6 +6,7 @@
     ../modules/home/editor.nix
     ../modules/home/dev.nix
     ../modules/home/browser.nix
+    ../modules/home/theme.nix
   ];
 
   home.username = "lucas";
