@@ -1,12 +1,8 @@
 { pkgs, ... }:
 {
-  # ---- kitty ----
-  # Your real kitty.conf (Rosé Pine Moon) is read verbatim so the tab templates,
-  # powerline glyphs and emoji survive untouched. Edit dotfiles/kitty/kitty.conf
-  # directly; no rebuild needed for kitty to pick it up (kitty_mod+f5 reloads).
-  programs.kitty = {
+  programs.alacritty = {
     enable = true;
-    extraConfig = builtins.readFile ../../dotfiles/kitty/kitty.conf;
+    settings = builtins.fromTOML (builtins.readFile ../../dotfiles/alacritty/alacritty.toml);
   };
 
   # ---- tmux (ported from your config) ----
