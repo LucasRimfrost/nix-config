@@ -77,6 +77,33 @@ vim.lsp.config("lua_ls", {
   },
 })
 
+-- go
+vim.lsp.config("gopls", {
+  settings = {
+    gopls = {
+      gofumpt = true,         -- stricter gofmt
+      staticcheck = true,     -- analyses beyond `go vet`
+      usePlaceholders = true, -- fill call-arg placeholders on completion
+      analyses = {
+        unusedparams = true,
+        unusedwrite = true,
+        nilness = true,
+        shadow = true,
+        useany = true,
+      },
+      hints = { -- inlay hints (enable globally below)
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
+      },
+    },
+  },
+})
+
 vim.lsp.enable({
   "lua_ls",
   "clangd",
@@ -84,4 +111,5 @@ vim.lsp.enable({
   "ruff",
   "rust_analyzer",
   "jdtls",
+  "gopls"
 })

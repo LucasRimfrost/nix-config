@@ -34,10 +34,22 @@
     # texliveFull   # full TeX distribution: latex, latexmk, latexindent, biber, all packages
     texlab        # LaTeX LSP
 
+    # --- Go (toolchain via Nix, NOT go's own toolchain downloads — auto-downloaded
+    #     Go toolchains are dynamically linked and won't run on NixOS) ---
+    go
+    gopls          # official LSP server (get it here, never via Mason)
+    gotools        # goimports, godoc, stringer, etc.
+    delve          # dlv debugger
+    golangci-lint  # the standard meta-linter
+
     # --- General ---
     git
     nodejs        # for nvim plugins / some LSPs (no nvm on NixOS)
   ];
+
+  home.sessionVariables = {
+    GOTOOLCHAIN = "local";
+  };
 
   # All LSP servers and formatters your Neovim config references now live on
   # PATH via the packages above, which is why Mason is removed from the nvim
