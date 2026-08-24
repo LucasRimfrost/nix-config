@@ -39,8 +39,8 @@
 
     settings = {
       user = {
-        name = "Lucas Andersson";
-        email = "12345678+yourhandle@users.noreply.github.com";
+        name = "Lucas Rimfrost";
+        email = "lucas.rimfrost@gmail.com";
       };
 
       init.defaultBranch = "main";
