@@ -28,6 +28,11 @@
   # zsh must be enabled system-wide to be usable as a login shell.
   programs.zsh.enable = true;
 
+  programs.direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+  };
+
   # ---- Locale & time (Stockholm) ----
   time.timeZone = "Europe/Stockholm";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -61,6 +66,7 @@
     # ~4 GB of compressed swap. Raise toward 100 if you hit memory pressure.
     memoryPercent = 50;
   };
+
 
   # Do not change after install — defines defaults at install time.
   system.stateVersion = "26.05";

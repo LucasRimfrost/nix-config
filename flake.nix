@@ -45,5 +45,10 @@
           }
         ];
       };
+
+      # Ad-hoc dev shells: nix develop ~/nix-config#rust
+      devShells.${system} = import ./shells.nix {
+        pkgs = nixpkgs.legacyPackages.${system};
+      };
     };
 }

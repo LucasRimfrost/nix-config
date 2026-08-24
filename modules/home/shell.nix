@@ -9,20 +9,18 @@
     syntaxHighlighting.enable = true;
 
     enableCompletion = true;
-    autocd = true; # AUTO_CD
+    autocd = true;                  # AUTO_CD
 
     oh-my-zsh = {
       enable = true;
       theme = "robbyrussell";
       plugins = [
-        "git"
-        "sudo"
-        "history-substring-search"
-        "command-not-found" # NOTE: stock OMZ version is Debian/Fedora-oriented;
-                            #       see comment at the bottom for the NixOS-native option.
+        "git"                       # git aliases & helpers
+        "sudo"                      # double-tap ESC to prepend sudo
+        "history-substring-search"  # arrow keys search prior commands by prefix
         "colored-man-pages"
-        "extract"
-        "z"
+        "extract"                   # universal extract function
+        "z"                         # jump to frequently-used directories
         "copypath"
       ];
     };
@@ -39,42 +37,26 @@
     };
 
     shellAliases = {
-      # Navigation
-      ".." = "cd ..";
-      "..." = "cd ../..";
-      "...." = "cd ../../..";
-      "....." = "cd ../../../..";
       # Editor
       vim = "nvim";
       vi = "nvim";
+
       # ls family
       ls = "ls --color=auto --group-directories-first";
-      ll = "ls -lh";
-      la = "ls -lAh";
-      l = "ls -CF";
+
+      cat = "bat --style=plain";
+
       # Safe file ops
       rm = "rm -i";
       cp = "cp -i";
       mv = "mv -i";
+
       # Quick edits (zshconfig repointed at the Nix module — editing ~/.zshrc
       # does nothing on NixOS since it's a read-only store symlink)
       reload = "source $HOME/.zshrc";
       zshconfig = "$EDITOR $HOME/nix-config/modules/home/shell.nix";
       nvimconfig = "$EDITOR ~/.config/nvim";
-      hyprconfig = "$EDITOR $HOME/.config/hypr/hyprland.conf"; # Hyprland leftover; you're on KDE now
-      # Dev
-      dev = "cd ~/dev/";
-      # build.sh shortcuts
-      b = "./build.sh";
-      br = "./build.sh run";
-      bc = "./build.sh clean";
-      bcr = "./build.sh clean run";
-      bf = "./build.sh fresh";
-      bfr = "./build.sh fresh run";
-      bd = "./build.sh debug";
-      bdr = "./build.sh debug run";
-      bcd = "./build.sh clean debug";
-      bcdr = "./build.sh clean debug run";
+
       # NixOS helpers
       rebuild = "sudo nixos-rebuild switch --flake ~/nix-config#lucas";
       update = "nix flake update --flake ~/nix-config && sudo nixos-rebuild switch --flake ~/nix-config#lucas";
@@ -83,13 +65,20 @@
     initContent = lib.mkMerge [
       # ---- 550: early, before oh-my-zsh and the plugins load ----
       (lib.mkOrder 550 ''
-        ZSH_DISABLE_COMPFIX="true"
-        HYPHEN_INSENSITIVE="true"
-        DISABLE_UNTRACKED_FILES_DIRTY="true"
+        ZSH_DISABLE_COMPFIX="true"              # skip insecure-dir verification
+        HYPHEN_INSENSITIVE="true"               # case-insensitive tab completion
+        DISABLE_UNTRACKED_FILES_DIRTY="true"    # faster git status in big repos
+        DISABLE_MAGIC_FUNCTIONS="true"          # skip slow paste-quoting wrappers
 
-        zstyle ':omz:update' mode auto
-        zstyle ':omz:update' frequency 13
+        # Nix owns oh-my-zsh from an immutable store path, so the updater can
+        # never succeed - "reminder" would just nag on a 30-day cycle forever.
+        zstyle ':omz:update' mode disabled
+
         zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+        # Cache completion results
+        zstyle ':completion:*' use-cache on
+        zstyle ':completion:*' cache-path "$HOME/.cache/zsh/zcompcache"
 
         # zsh-autosuggestions tuning
         ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
@@ -113,13 +102,6 @@
         # cd to previous directory
         alias -- -='cd -'
 
-        # Modern tool replacements (only if the tool is installed)
-        command -v bat  >/dev/null 2>&1 && alias cat='bat --style=plain' && alias catt='bat'
-        command -v rg   >/dev/null 2>&1 && alias grep='rg'
-        command -v fd   >/dev/null 2>&1 && alias find='fd'
-        command -v btm  >/dev/null 2>&1 && alias htop='btm'
-        command -v dust >/dev/null 2>&1 && alias du='dust'
-        command -v duf  >/dev/null 2>&1 && alias df='duf'
         command -v tmux-sessionizer >/dev/null 2>&1 && alias tms='tmux-sessionizer'
 
         # Functions
@@ -136,27 +118,15 @@
     ];
   };
 
-  # CLI tools your aliases call (ripgrep + fd are already in editor.nix).
+  # CLI tools your aliases call
   home.packages = with pkgs; [
     bat     # cat
-    bottom  # btm
-    dust # dust
-    duf     # df
   ];
 
-  # Extra PATH entries from your old .zshrc.
-  # The TeXLive 2026 paths were dropped: install LaTeX via Nix instead
-  # (ask me to add texliveMedium/Full to dev.nix and tex lands on PATH + man/info
-  # automatically — far cleaner than /usr/local/texlive).
+  # compinit silently skips caching if this directory doesn't exist
+  home.file.".cache/zsh/.keep".text = "";
+
   home.sessionPath = [
     "${config.home.homeDirectory}/.local/bin"
-    "${config.home.homeDirectory}/.fly/bin"
   ];
-
-  # EDITOR=nvim is already set via programs.neovim.defaultEditor (editor.nix).
-  #
-  # nvm was intentionally dropped: Node binaries that nvm downloads usually
-  # fail on NixOS (dynamic-linker mismatch). Use the Nix `nodejs` from dev.nix,
-  # or add `fnm`. Likewise `command-not-found`: the NixOS-native path is to
-  # enable `programs.nix-index` + its database; ask and I'll wire it in.
 }

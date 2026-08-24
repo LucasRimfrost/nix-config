@@ -4,7 +4,6 @@
     ../modules/home/shell.nix
     ../modules/home/terminal.nix
     ../modules/home/editor.nix
-    ../modules/home/dev.nix
     ../modules/home/browser.nix
     ../modules/home/theme.nix
   ];

@@ -1,5 +1,3 @@
-require("mason").setup()
-
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format Local buffer" })
 vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
@@ -77,39 +75,21 @@ vim.lsp.config("lua_ls", {
   },
 })
 
--- go
-vim.lsp.config("gopls", {
+-- nix
+vim.lsp.config("nixd", {
   settings = {
-    gopls = {
-      gofumpt = true,         -- stricter gofmt
-      staticcheck = true,     -- analyses beyond `go vet`
-      usePlaceholders = true, -- fill call-arg placeholders on completion
-      analyses = {
-        unusedparams = true,
-        unusedwrite = true,
-        nilness = true,
-        shadow = true,
-        useany = true,
-      },
-      hints = { -- inlay hints (enable globally below)
-        assignVariableTypes = true,
-        compositeLiteralFields = true,
-        compositeLiteralTypes = true,
-        constantValues = true,
-        functionTypeParameters = true,
-        parameterNames = true,
-        rangeVariableTypes = true,
-      },
+    nixd = {
+      formatting = { command = { "nixfmt" } },
     },
   },
 })
 
 vim.lsp.enable({
   "lua_ls",
+  "nixd",
   "clangd",
   "pyright",
   "ruff",
   "rust_analyzer",
   "jdtls",
-  "gopls"
 })
