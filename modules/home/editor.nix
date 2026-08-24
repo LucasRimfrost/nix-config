@@ -29,11 +29,26 @@
     nixfmt                  # provides the `nixfmt` binary nixd calls
 
     # --- General ---
-    git
     unzip
     wget
     curl
   ];
+
+  programs.git = {
+    enable = true;
+
+    settings = {
+      user = {
+        name = "Lucas Andersson";
+        email = "12345678+yourhandle@users.noreply.github.com";
+      };
+
+      init.defaultBranch = "main";
+      pull.rebase = true;
+      push.autoSetupRemote = true;
+      rebase.autoStash = true;
+    };
+  };
 
   home.sessionVariables.EDITOR = "nvim";
 
