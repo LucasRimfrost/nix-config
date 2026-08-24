@@ -39,4 +39,13 @@
       jdt-language-server   # provides the `jdtls` wrapper
     ];
   };
+
+  latex = pkgs.mkShell {
+    packages = with pkgs; [
+      texliveFull
+      texlab
+      (python3.withPackages (ps: [ ps.pygments ]))
+      zathura
+    ];
+  };
 }

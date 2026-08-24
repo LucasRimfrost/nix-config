@@ -4,6 +4,7 @@ require("options")
 require("keymaps")
 require("commands")
 require("statusline")
+require("vimtex")
 require("pack")
 
 vim.cmd.colorscheme("rose-pine")

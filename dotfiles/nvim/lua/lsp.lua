@@ -84,6 +84,33 @@ vim.lsp.config("nixd", {
   },
 })
 
+-- latex
+-- Compilation and PDF viewing are VimTeX's job (see vimtex.lua); build.onSave
+-- is off here so both don't run latexmk against build/ at the same time.
+vim.lsp.config("texlab", {
+  settings = {
+    texlab = {
+      build = {
+        executable = "latexmk",
+        args = { "-interaction=nonstopmode", "-synctex=1", "%f" },
+        onSave = false,
+        forwardSearchAfter = false,
+      },
+      chktex = {
+        onOpenAndSave = true,
+        onEdit = false, -- too noisy while typing
+      },
+      diagnosticsDelay = 300,
+      latexFormatter = "latexindent",
+      latexindent = {
+        modifyLineBreaks = false,
+      },
+      bibtexFormatter = "texlab",
+      formatterLineLength = 100,
+    },
+  },
+})
+
 vim.lsp.enable({
   "lua_ls",
   "nixd",
@@ -92,4 +119,5 @@ vim.lsp.enable({
   "ruff",
   "rust_analyzer",
   "jdtls",
+  "texlab",
 })

@@ -6,6 +6,7 @@ vim.pack.add({
   "https://github.com/nvim-mini/mini.nvim",
   { src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = "main" },
   "https://github.com/neovim/nvim-lspconfig",
+  "https://github.com/lervag/vimtex",
   "https://github.com/tpope/vim-fugitive",
 })
 

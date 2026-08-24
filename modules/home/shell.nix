@@ -57,6 +57,13 @@
       zshconfig = "$EDITOR $HOME/nix-config/modules/home/shell.nix";
       nvimconfig = "$EDITOR ~/.config/nvim";
 
+      # Throwaway toolchains — devShells defined in ~/nix-config/shells.nix
+      drust = "nix develop ~/nix-config#rust";
+      dpy = "nix develop ~/nix-config#python";
+      dcpp = "nix develop ~/nix-config#cpp";
+      djava = "nix develop ~/nix-config#java";
+      dtex = "nix develop ~/nix-config#latex";
+
       # NixOS helpers
       rebuild = "sudo nixos-rebuild switch --flake ~/nix-config#lucas";
       update = "nix flake update --flake ~/nix-config && sudo nixos-rebuild switch --flake ~/nix-config#lucas";
